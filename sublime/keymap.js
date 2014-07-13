@@ -325,37 +325,33 @@ exports.ideKeymap = [
 /* find replace */
 {
     bindKey: {mac: "cmd-alt-f", win: "ctrl-h"},
-    name: "show_panel",
-    args: {panel: "replace", reverse: false}
+    name: "replace"
 }, {
     bindKey: {mac: "cmd-alt-e", win: "ctrl-shift-h"},
-    name: "replace_next"
+    name: "replacenext"
 }, {
     bindKey: {mac: "cmd-e", win: "ctrl-e"},
-    name: "slurp_find_string"
+    name: "slurp_find_string" // todo
 }, {
     bindKey: {mac: "cmd-shift-e", win: "ctrl-shift-e"},
     name: "slurp_replace_string"
 }, {
     bindKey: {mac: "ctrl-alt-enter", win: "ctrl-alt-enter"},
-    name: "replace_all",
-    context: [{key: "panel", operand: "replace"}, {key: "panel_has_focus"}],
-    args: {close_panel: true}
+    name: "replaceall"
 }, {
     bindKey: {mac: "cmd-f", win: "ctrl-f"},
-    name: "show_panel",
-    args: {panel: "find", reverse: false}
+    name: "find"
 }, {
     bindKey: {mac: "cmd-shift-f", win: "ctrl-shift-f"},
-    name: "show_panel",
-    args: {panel: "find_in_files"}
-}, {
-    bindKey: {mac: "f4", win: "f4"},
-    name: "next_result"
-}, {
-    bindKey: {mac: "shift-f4", win: "shift-f4"},
-    name: "prev_result"
+    name: "searchinfiles",
 }, 
+// {
+//     bindKey: {mac: "f4", win: "f4"},
+//     name: "next_result"
+// }, {
+//     bindKey: {mac: "shift-f4", win: "shift-f4"},
+//     name: "prev_result"
+// }, 
 // todo incremental_find
 // {
 //     bindKey: {mac: "cmd-alt-c", win: "alt-c"},
@@ -457,20 +453,6 @@ exports.editorCommands = [{
     },
     multiSelectAction: "forEach",
     scrollIntoView: "cursor",
-}, 
-/* move */
-{
-    bindKey: {win: "ctrl-left"},
-    name: ""
-}, {
-    bindKey: {win: "ctrl-right"},
-    name: ""
-}, {
-    bindKey: {win: "ctrl-shift-left"},
-    name: "",
-}, {
-    bindKey: {win: "ctrl-shift-right"},
-    name: "",
 }, 
 ];
 
@@ -636,16 +618,16 @@ exports.editorKeymap = [{
 
 /* move */
 {
-    bindKey: {win: "ctrl-left"},
+    bindKey: {win: "ctrl-left", mac: "alt-left"},
     name: "moveToWordStartLeft"
 }, {
-    bindKey: {win: "ctrl-right"},
+    bindKey: {win: "ctrl-right", mac: "alt-right"},
     name: "moveToWordEndRight"
 }, {
-    bindKey: {win: "ctrl-shift-left"},
+    bindKey: {win: "ctrl-shift-left", mac: "alt-shift-left"},
     name: "selectToWordStartLeft",
 }, {
-    bindKey: {win: "ctrl-shift-right"},
+    bindKey: {win: "ctrl-shift-right", mac: "alt-shift-right"},
     name: "selectToWordEndRight",
 }, 
 
