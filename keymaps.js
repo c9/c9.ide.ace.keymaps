@@ -1,6 +1,7 @@
 define(function(require, exports, module) {
     main.consumes = [
-        "Plugin", "ui", "ace", "menus", "settings", "vim.cli", "tabManager"
+        "Plugin", "ui", "ace", "menus", "settings", "vim.cli", "tabManager",
+        "commands"
     ];
     main.provides = ["keymaps"];
     return main;
@@ -8,9 +9,10 @@ define(function(require, exports, module) {
     function main(options, imports, register) {
         var Plugin = imports.Plugin;
         var ui = imports.ui;
-        var tabManager = imports.tabManager;
         var ace = imports.ace;
         var menus = imports.menus;
+        var commands = imports.commands;
+        var tabManager = imports.tabManager;
         var settings = imports.settings;
         var cli = imports["vim.cli"];
         
@@ -95,7 +97,9 @@ define(function(require, exports, module) {
                     var editor = tab.editor.ace;
                     
                     // Set Mode
-                    editor.setKeyboardHandler(mode);
+                    editor.setKeyboardHandler(mode, function() {
+                        updateIdeKeymap(mode);
+                    });
                
                     if (cli.cmdLine) {
                         editor.cmdLine = cli.ace;
@@ -105,8 +109,33 @@ define(function(require, exports, module) {
             });
         }
         
-        function loadIdeKeymap(path) {
+        function updateIdeKeymap(path) {
+            commands.reset();
+            if (!path) return;
+            var module = require(path);
+            if (module.ideCommands) {
+                module.ideCommands.forEach(function(x) {
+                    // commands.bindKey(x.bindKey, x.name);
+                });
+            }
             
+            if (module.editorCommands) {
+                module.editorCommands.forEach(function(x) {
+                    // commands.bindKey(x.bindKey, x.name);
+                });
+            }
+            
+            if (module.ideKeymap) {
+                module.ideKeymap.forEach(function(x) {
+                    commands.bindKey(x.bindKey, x.name);
+                });
+            }
+            
+            if (module.editorKeymap) {
+                module.editorKeymap.forEach(function(x) {
+                    commands.bindKey(x.bindKey, x.name);
+                });
+            }
         }
         
         function showCommandLine(val) {
@@ -117,16 +146,7 @@ define(function(require, exports, module) {
             if (typeof val == "string")
                 this.cmdLine.setValue(val, 1);
         }
-    
-        // function disable() {
-        //     var editor = code.amlEditor.$editor;
-        //     if (editor) {
-        //         editor.keyBinding.removeKeyboardHandler(editor.$vimModeHandler);
-        //         editor.keyBinding.removeKeyboardHandler(editor.$emacsModeHandler);
-        //     }
-        //     cmdLine && cmdLine.hide()
-        // }
-    
+
         /***** Lifecycle *****/
         
         plugin.on("load", function() {

@@ -1,6 +1,6 @@
 define(function(require, exports, module) {
 
-exports.ideKeys = [
+exports.ideKeymap = [
 /* ide commands */
 // {
 //     bindKey: {mac: "cmd-w", win: "ctrl-w|ctrl-f4"},
@@ -60,7 +60,7 @@ exports.ideKeys = [
     bindKey: {mac: "cmd-shift-r", win: "ctrl-shift-r"},
     // todo: this should be project outline
     name: "outline"
-},{
+}, {
     bindKey: {mac: "ctrl-g", win: "ctrl-g"},
     name: "gotoline",
     args: {overlay: "goto", text: ":"}
@@ -387,7 +387,7 @@ exports.editorCommands = [{
 }];
 
 /* editor commands */
-exports.editorKeys = [{
+exports.editorKeymap = [{
     bindKey: {linux: "alt-/|ctrl-space", mac: "ctrl-space", win: "ctrl-space"},
     name: "complete"
 },
