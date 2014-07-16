@@ -79,17 +79,16 @@ define(function(require, exports, module) {
                 settings.set("user/ace/@keyboardmode", mode);
             }
     
-            if (mode == "emacs" || mode == "vim")
-                mode = "ace/keyboard/" + mode;
-            else if (mode == "sublime")
-                mode = "plugins/c9.ide.ace.keymaps/sublime";
-            else
-                mode = null;
-            
-            if (mode)
+            if (mode == "emacs" || mode == "vim") {
                 cli.show();
-            else
+                mode = "ace/keyboard/" + mode;
+            } else {
                 cli.hide();
+                if (mode == "sublime")
+                    mode = "plugins/c9.ide.ace.keymaps/sublime/keymap";
+                else
+                    mode = null;
+            }
             
             (tab ? [tab] : tabManager.getTabs()).forEach(function(tab) {
                 if (tab.editor && tab.editor.type == "ace") {
@@ -98,19 +97,25 @@ define(function(require, exports, module) {
                     // Set Mode
                     editor.setKeyboardHandler(mode);
                
-                    if (mode) {
+                    if (cli.cmdLine) {
                         editor.cmdLine = cli.ace;
-                        editor.showCommandLine = function(val) {
-                            editor.cmdLine.editor = editor;
-                            cli.show();
-                            editor.cmdLine.focus();
-                            
-                            if (typeof val == "string")
-                                editor.cmdLine.setValue(val, 1);
-                        };
-                    } 
+                        editor.showCommandLine;
+                    }
                 }
             });
+        }
+        
+        function loadIdeKeymap(path) {
+            
+        }
+        
+        function showCommandLine(val) {
+            this.cmdLine.editor = this;
+            cli.show();
+            this.cmdLine.focus();
+            
+            if (typeof val == "string")
+                this.cmdLine.setValue(val, 1);
         }
     
         // function disable() {
@@ -151,7 +156,7 @@ define(function(require, exports, module) {
         });
         
         register(null, {
-            vim: plugin
+            keymaps: plugin
         });
     }
 });
