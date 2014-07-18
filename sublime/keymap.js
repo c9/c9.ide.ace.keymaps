@@ -1,7 +1,8 @@
 define(function(require, exports, module) {
 
-exports.ideKeymap = [
 /* ide commands */
+exports.ideKeymap = [
+// fallback to c9 defaults
 // {
 //     bindKey: {mac: "cmd-w", win: "ctrl-w|ctrl-f4"},
 //     name: "close"
@@ -15,28 +16,31 @@ exports.ideKeymap = [
 //     bindKey: {mac: "cmd-n", win: "ctrl-n"},
 //     name: "new_file"
 // }, 
+// {
+//     bindKey: {mac: "cmd-o", win: "ctrl-o"},
+//     name: "newfile"
+// }, {
+//     bindKey: {mac: "cmd-shift-s", win: "ctrl-shift-s"},
+//     name: "saveas"
+// }, {
+//     bindKey: {mac: "cmd-s", win: "ctrl-s"},
+//     name: "save"
+// }, {
+//     bindKey: {mac: "cmd-alt-s"},
+//     name: "saveall"
+// }, {
+//     bindKey: {mac: "cmd-shift-n", win: "ctrl-shift-n"},
+//     name: "newWindow"
+// },
+
 {
-    bindKey: {mac: "cmd-o", win: "ctrl-o"},
-    name: "newfile"
-}, {
-    bindKey: {mac: "cmd-shift-s", win: "ctrl-shift-s"},
-    name: "saveas"
+    // todo
+    bindKey: {mac: "cmd-ctrl-p", win: "ctrl-alt-p"},
+    name: "prompt_select_workspace"
 }, {
     bindKey: {mac: "cmd-shift-t", win: "ctrl-shift-t"},
     name: "reopenLastTab"
-}, {
-    bindKey: {mac: "cmd-s", win: "ctrl-s"},
-    name: "save"
-}, {
-    bindKey: {mac: "cmd-alt-s"},
-    name: "saveall"
-}, {
-    bindKey: {mac: "cmd-shift-n", win: "ctrl-shift-n"},
-    name: "newWindow"
-}, {
-    bindKey: {mac: "cmd-ctrl-p", win: "ctrl-alt-p"},
-    name: "prompt_select_workspace"
-}, 
+},
 
 {
     bindKey: {mac: "f7|cmd-b", win: "f7|ctrl-b"},
@@ -65,6 +69,7 @@ exports.ideKeymap = [
     name: "gotoline",
     args: {overlay: "goto", text: ":"}
 }, 
+// todo what is this?
 // {
 //     bindKey: {win: "ctrl-;"},
 //     name: "show_overlay",
@@ -341,14 +346,6 @@ exports.ideKeymap = [
     name: "show_panel",
     args: {panel: "find", reverse: false}
 }, {
-    bindKey: {mac: "cmd-i", win: "ctrl-i"},
-    name: "show_panel",
-    args: {panel: "incremental_find", reverse: false}
-}, {
-    bindKey: {mac: "cmd-shift-i", win: "ctrl-shift-i"},
-    name: "show_panel",
-    args: {panel: "incremental_find", reverse: true}
-}, {
     bindKey: {mac: "cmd-shift-f", win: "ctrl-shift-f"},
     name: "show_panel",
     args: {panel: "find_in_files"}
@@ -364,6 +361,16 @@ exports.ideKeymap = [
 //     bindKey: {mac: "cmd-alt-c", win: "alt-c"},
 //     name: "toggle_case_sensitive",
 // }, {
+//     bindKey: {mac: "cmd-i", win: "ctrl-i"},
+//     name: "show_panel",
+//     args: {panel: "incremental_find", reverse: false}
+// }, {
+//     bindKey: {mac: "cmd-shift-i", win: "ctrl-shift-i"},
+//     name: "show_panel",
+//     args: {panel: "incremental_find", reverse: true}
+// }, 
+
+// {
 //     bindKey: {mac: "cmd-alt-a", win: "alt-a"},
 //     name: "toggle_preserve_case",
 // }, {
@@ -377,14 +384,95 @@ exports.ideKeymap = [
 
 
 exports.editorCommands = [{
-    name: "find_under"
+    name: "find_under",
+    exec: function(editor) {
+        editor.selection.selectWord();
+        editor.findNext();
+    },
+    readOnly: true
 }, {
-    name: "find_under_prev"
+    name: "find_under_prev",
+    exec: function(editor) {
+        editor.selection.selectWord();
+        editor.findPrevious();
+    },
+    readOnly: true
 }, {
-    name: "find_under_expand"
+    name: "find_under_expand",
+    exec: function(editor) {
+        editor.selectMore(1, false, true);
+    },
+    scrollIntoView: "animate",
+    readOnly: true
 }, {
-    name: "find_under_expand_skip"
-}];
+    name: "find_under_expand_skip",
+    exec: function(editor) {
+        editor.selectMore(1, true, true);
+    },
+    scrollIntoView: "animate",
+    readOnly: true
+}, {
+    name: "delete_to_hard_bol",
+    exec: function(editor) {
+        // todo
+    },
+    multiSelectAction: "forEach",
+    scrollIntoView: "cursor",
+}, {
+    name: "delete_to_hard_eol",
+    exec: function(editor) {
+        // todo
+    },
+    multiSelectAction: "forEach",
+    scrollIntoView: "cursor",
+}, {
+    name: "moveToWordStartLeft",
+    exec: function(editor) {
+        editor.selection.moveCursorLongWordLeft();
+        editor.clearSelection();
+    },
+    multiSelectAction: "forEach",
+    scrollIntoView: "cursor",
+}, {
+    name: "moveToWordEndRight",
+    exec: function(editor) {
+        editor.selection.moveCursorLongWordRight();
+        editor.clearSelection();
+    },
+    multiSelectAction: "forEach",
+    scrollIntoView: "cursor",
+}, {
+    name: "selectToWordStartLeft",
+    exec: function(editor) {
+        var sel = editor.selection;
+        sel.$moveSelection(sel.moveCursorLongWordLeft);
+    },
+    multiSelectAction: "forEach",
+    scrollIntoView: "cursor",
+}, {
+    name: "selectToWordEndRight",
+    exec: function(editor) {
+        var sel = editor.selection;
+        sel.$moveSelection(sel.moveCursorLongWordRight);
+    },
+    multiSelectAction: "forEach",
+    scrollIntoView: "cursor",
+}, 
+/* move */
+{
+    bindKey: {win: "ctrl-left"},
+    name: ""
+}, {
+    bindKey: {win: "ctrl-right"},
+    name: ""
+}, {
+    bindKey: {win: "ctrl-shift-left"},
+    name: "",
+}, {
+    bindKey: {win: "ctrl-shift-right"},
+    name: "",
+}, 
+];
 
 /* editor commands */
 exports.editorKeymap = [{
@@ -548,117 +636,41 @@ exports.editorKeymap = [{
 
 /* move */
 {
-    bindKey: {win: "left"},
-    name: "move",
-    args: {by: "characters", forward: false}
-}, {
-    bindKey: {win: "up"},
-    name: "move",
-    args: {by: "lines", forward: false}
-}, {
-    bindKey: {win: "down"},
-    name: "move",
-    args: {by: "lines", forward: true}
-}, {
-    bindKey: {win: "shift-left"},
-    name: "move",
-    args: {by: "characters", forward: false, extend: true}
-}, {
-    bindKey: {win: "shift-right"},
-    name: "move",
-    args: {by: "characters", forward: true, extend: true}
-}, {
-    bindKey: {win: "shift-up"},
-    name: "move",
-    args: {by: "lines", forward: false, extend: true}
-}, {
-    bindKey: {win: "shift-down"},
-    name: "move",
-    args: {by: "lines", forward: true, extend: true}
-}, {
-    bindKey: {win: "shift-pageup"},
-    name: "move",
-    args: {by: "pages", forward: false, extend: true}
-}, {
     bindKey: {win: "ctrl-left"},
-    name: "move",
-    args: {by: "words", forward: false}
+    name: "moveToWordStartLeft"
 }, {
     bindKey: {win: "ctrl-right"},
-    name: "move",
-    args: {by: "word_ends", forward: true}
+    name: "moveToWordEndRight"
 }, {
     bindKey: {win: "ctrl-shift-left"},
-    name: "move",
-    args: {by: "words", forward: false, extend: true}
-}, {
-    bindKey: {win: "shift-pagedown"},
-    name: "move",
-    args: {by: "pages", forward: true, extend: true}
-}, {
-    bindKey: {win: "pagedown"},
-    name: "move",
-    args: {by: "pages", forward: true}
-}, {
-    bindKey: {mac: "ctrl-alt-shift-right|ctrl-shift-right", win: "alt-shift-right"},
-    name: "move",
-    args: {by: "subword_ends", forward: true, extend: true}
-}, {
-    bindKey: {mac: "ctrl-alt-shift-left|ctrl-shift-left", win: "alt-shift-left"},
-    name: "move",
-    args: {by: "subwords", forward: false, extend: true}
-}, {
-    bindKey: {mac: "ctrl-alt-right|ctrl-right", win: "alt-right"},
-    name: "move",
-    args: {by: "subword_ends", forward: true}
-}, {
-    bindKey: {win: "pageup"},
-    name: "move",
-    args: {by: "pages", forward: false}
-}, {
-    bindKey: {mac: "ctrl-alt-left|ctrl-left", win: "alt-left"},
-    name: "move",
-    args: {by: "subwords", forward: false}
+    name: "selectToWordStartLeft",
 }, {
     bindKey: {win: "ctrl-shift-right"},
-    name: "move",
-    args: {by: "word_ends", forward: true, extend: true}
-}, {
+    name: "selectToWordEndRight",
+}, 
+
+// todo implement move by subwords
+// {
+//     bindKey: {mac: "ctrl-alt-shift-right|ctrl-shift-right", win: "alt-shift-right"},
+//     name: "move",
+//     args: {by: "subword_ends", forward: true, extend: true}
+// }, {
+//     bindKey: {mac: "ctrl-alt-shift-left|ctrl-shift-left", win: "alt-shift-left"},
+//     name: "move",
+//     args: {by: "subwords", forward: false, extend: true}
+// }, {
+//     bindKey: {mac: "ctrl-alt-right|ctrl-right", win: "alt-right"},
+//     name: "move",
+//     args: {by: "subword_ends", forward: true}
+// }, {
+//     bindKey: {mac: "ctrl-alt-left|ctrl-left", win: "alt-left"},
+//     name: "move",
+//     args: {by: "subwords", forward: false}
+// }, 
+{
     bindKey: {mac: "ctrl-m", win: "ctrl-m"},
-    name: "move_to",
+    name: "jumptomatching",
     args: {to: "brackets"}
-}, {
-    bindKey: {win: "ctrl-end"},
-    name: "move_to",
-    args: {to: "eof", extend: false}
-}, {
-    bindKey: {win: "ctrl-shift-home"},
-    name: "move_to",
-    args: {to: "bof", extend: true}
-}, {
-    bindKey: {win: "ctrl-shift-end"},
-    name: "move_to",
-    args: {to: "eof", extend: true}
-}, {
-    bindKey: {win: "ctrl-home"},
-    name: "move_to",
-    args: {to: "bof", extend: false}
-}, {
-    bindKey: {win: "shift-end"},
-    name: "move_to",
-    args: {to: "eol", extend: true}
-}, {
-    bindKey: {win: "shift-home"},
-    name: "move_to",
-    args: {to: "bol", extend: true}
-}, {
-    bindKey: {win: "end"},
-    name: "move_to",
-    args: {to: "eol", extend: false}
-}, {
-    bindKey: {win: "home"},
-    name: "move_to",
-    args: {to: "bol", extend: false}
 }, 
 /* other */
 {
@@ -675,7 +687,7 @@ exports.editorKeymap = [{
 }, 
 // {
 //     bindKey: {mac: "ctrl-shift-w", win: "alt-shift-w"},
-//     name: "insert_snippet",
+//     name: "surrowndWithTag",
 //     args: {name: "Packages/XML/long-tag.sublime-snippet"}
 // },{
 //     bindKey: {mac: "cmd-alt-.", win: "alt-."},
@@ -709,7 +721,7 @@ exports.editorKeymap = [{
 //     bindKey: {mac: "cmd-shift-v", win: "ctrl-shift-v"},
 //     name: "paste_and_indent"
 // }, {
-//     bindKey: {mac: "cmd-k cmd-v|cmd-option-v", win: "ctrl-k ctrl-v"},
+//     bindKey: {mac: "cmd-k cmd-v|cmd-alt-v", win: "ctrl-k ctrl-v"},
 //     name: "paste_from_history"
 // }, 
 
@@ -780,6 +792,12 @@ exports.editorKeymap = [{
     bindKey: {mac: "ctrl-cmd-up", win: "ctrl-shift-up"},
     name: "movelinesup"
 }, {
+    bindKey: {mac: "alt-down", win: "alt-down"},
+    name: "modifyNumberDown"
+}, {
+    bindKey: {mac: "alt-up", win: "alt-up"},
+    name: "modifyNumberUp"
+}, {
     bindKey: {mac: "cmd-/", win: "ctrl-/"},
     name: "togglecomment"
 }, {
@@ -802,18 +820,18 @@ exports.editorKeymap = [{
 {
     bindKey: {mac: "ctrl-t", win: "ctrl-t"},
     name: "transpose"
-}, 
-// {
-//     bindKey: {mac: "cmd-alt-q", win: "alt-q"},
-//     name: "wrap_lines"
-// }, 
-];
+}
 
+];
 
 });
 
 
 // won't implement
+// {
+//     bindKey: {mac: "cmd-alt-q", win: "alt-q"},
+//     name: "wrap_lines"
+// }, 
 
 // {
 //     bindKey: {mac: "f6", win: "f6"},

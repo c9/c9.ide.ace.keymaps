@@ -21,7 +21,7 @@ define(function(require, exports, module) {
         var plugin = new Plugin("Ajax.org", main.consumes);
         // var emit = plugin.getEmitter();
         
-        var currentMode;
+        var currentMode, activeMode;
         
         var loaded = false;
         function load() {
@@ -98,7 +98,10 @@ define(function(require, exports, module) {
                     
                     // Set Mode
                     editor.setKeyboardHandler(mode, function() {
+                        if (activeMode == mode)
+                            return;
                         updateIdeKeymap(mode);
+                        activeMode = mode;
                     });
                
                     if (cli.cmdLine) {
@@ -110,32 +113,41 @@ define(function(require, exports, module) {
         }
         
         function updateIdeKeymap(path) {
+            var allCommands = commands.commands;
+            Object.keys(allCommands).forEach(function(name) {
+                var cmd = allCommands[name];
+                if (cmd && cmd.originalBindKey)
+                    cmd.bindKey = cmd.originalBindKey;
+            });
+            
+            var kb = path ? require(path) : {};
+            if (kb.ideCommands) {
+                kb.ideCommands.forEach(function(x) {
+                    commands.addCommand(x, plugin);
+                });
+            }
+            
+            if (kb.editorCommands) {
+                kb.editorCommands.forEach(function(x) {
+                    x.findEditor = findEditor;
+                    x.isAvailable = isAvailableAce;
+                    commands.addCommand(x, plugin);
+                });
+            }
+            
+            if (kb.ideKeymap)
+                kb.ideKeymap.forEach(bindKey);
+            if (kb.editorKeymap)
+                kb.editorKeymap.forEach(bindKey);
+
+            function bindKey(x) {
+                var cmd = allCommands[x.name];
+                if (cmd) {
+                    cmd.bindKey = x.bindKey;
+                }
+            }
+
             commands.reset();
-            if (!path) return;
-            var module = require(path);
-            if (module.ideCommands) {
-                module.ideCommands.forEach(function(x) {
-                    // commands.bindKey(x.bindKey, x.name);
-                });
-            }
-            
-            if (module.editorCommands) {
-                module.editorCommands.forEach(function(x) {
-                    // commands.bindKey(x.bindKey, x.name);
-                });
-            }
-            
-            if (module.ideKeymap) {
-                module.ideKeymap.forEach(function(x) {
-                    commands.bindKey(x.bindKey, x.name);
-                });
-            }
-            
-            if (module.editorKeymap) {
-                module.editorKeymap.forEach(function(x) {
-                    commands.bindKey(x.bindKey, x.name);
-                });
-            }
         }
         
         function showCommandLine(val) {
@@ -145,6 +157,22 @@ define(function(require, exports, module) {
             
             if (typeof val == "string")
                 this.cmdLine.setValue(val, 1);
+        }
+        
+        
+        function isAvailableAce(editor, args, event) {
+            if (!editor || !editor.ace) return false;
+            
+            // using this instead of editor.type == "ace" to make 
+            // commands avaliable in editors inheriting from ace
+            if (event instanceof KeyboardEvent && (!editor.ace.isFocused()))
+                return false;
+            
+            return true;
+        }
+    
+        function findEditor(editor) {
+            return editor && editor.ace || editor;
         }
 
         /***** Lifecycle *****/
