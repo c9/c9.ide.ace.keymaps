@@ -1,7 +1,7 @@
 define(function(require, exports, module) {
     main.consumes = [
         "Plugin", "ui", "ace", "menus", "settings", "vim.cli", "tabManager",
-        "commands"
+        "commands", "c9"
     ];
     main.provides = ["keymaps"];
     return main;
@@ -15,6 +15,7 @@ define(function(require, exports, module) {
         var tabManager = imports.tabManager;
         var settings = imports.settings;
         var cli = imports["vim.cli"];
+        var c9 = imports.c9;
         
         /***** Initialization *****/
         
@@ -113,41 +114,51 @@ define(function(require, exports, module) {
         }
         
         function updateIdeKeymap(path) {
-            var allCommands = commands.commands;
-            Object.keys(allCommands).forEach(function(name) {
-                var cmd = allCommands[name];
-                if (cmd && cmd.originalBindKey)
-                    cmd.bindKey = cmd.originalBindKey;
-            });
-            
-            var kb = path ? require(path) : {};
-            if (kb.ideCommands) {
-                kb.ideCommands.forEach(function(x) {
-                    commands.addCommand(x, plugin);
+            c9.once("ready", function() {
+                var allCommands = commands.commands;
+                Object.keys(allCommands).forEach(function(name) {
+                    var cmd = allCommands[name];
+                    if (cmd && cmd.originalBindKey)
+                        cmd.bindKey = cmd.originalBindKey;
                 });
-            }
-            
-            if (kb.editorCommands) {
-                kb.editorCommands.forEach(function(x) {
-                    x.findEditor = findEditor;
-                    x.isAvailable = isAvailableAce;
-                    commands.addCommand(x, plugin);
-                });
-            }
-            
-            if (kb.ideKeymap)
-                kb.ideKeymap.forEach(bindKey);
-            if (kb.editorKeymap)
-                kb.editorKeymap.forEach(bindKey);
-
-            function bindKey(x) {
-                var cmd = allCommands[x.name];
-                if (cmd) {
-                    cmd.bindKey = x.bindKey;
+                
+                commands.reset();
+                
+                var kb = path ? require(path) : {};
+                if (kb.ideCommands) {
+                    kb.ideCommands.forEach(function(x) {
+                        commands.addCommand(x, plugin);
+                    });
                 }
-            }
-
-            commands.reset();
+                
+                if (kb.editorCommands) {
+                    kb.editorCommands.forEach(function(x) {
+                        x.findEditor = findEditor;
+                        x.isAvailable = isAvailableAce;
+                        commands.addCommand(x, plugin);
+                    });
+                }
+                
+                if (kb.ideKeymap)
+                    kb.ideKeymap.forEach(bindKey);
+                if (kb.editorKeymap)
+                    kb.editorKeymap.forEach(bindKey);
+    
+                function bindKey(x) {
+                    var cmd = allCommands[x.name];
+                    if (cmd && x.bindKey) {
+                        x.bindKey.mac = normalize(x.bindKey.mac);
+                        x.bindKey.win = normalize(x.bindKey.win);
+                        cmd.bindKey = x.bindKey;
+                    }
+                }
+                
+                function normalize(str) {
+                    return str && str.replace(/(^|-| )(\w)/g, function(_, a, b) {
+                        return a + b.toUpperCase();
+                    });
+                }
+            });
         }
         
         function showCommandLine(val) {

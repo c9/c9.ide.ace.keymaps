@@ -284,6 +284,12 @@ exports.ideKeymap = [
     name: "previoustab"
 }, 
 
+{
+    bindKey: {},
+    name: "nextpane"
+},
+
+
 // {
 //     bindKey: {mac: "cmd-alt-up", win: "alt-o"},
 //     name: "switch_file",
