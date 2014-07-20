@@ -288,6 +288,10 @@ exports.ideKeymap = [
     bindKey: {},
     name: "nextpane"
 },
+{
+    bindKey: {mac: "ctrl+alt+f", win: "ctrl+alt+f"}, // shortcut from codeformatter plugin
+    name: "formatcode"
+},
 
 
 // {
