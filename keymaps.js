@@ -104,11 +104,8 @@ define(function(require, exports, module) {
                         updateIdeKeymap(mode);
                         activeMode = mode;
                     });
-               
-                    if (cli.cmdLine) {
-                        editor.cmdLine = cli.ace;
-                        editor.showCommandLine;
-                    }
+                    
+                    editor.showCommandLine = showCommandLine;
                 }
             });
         }
@@ -162,8 +159,9 @@ define(function(require, exports, module) {
         }
         
         function showCommandLine(val) {
-            this.cmdLine.editor = this;
             cli.show();
+            this.cmdLine = cli.ace;
+            this.cmdLine.editor = this;
             this.cmdLine.focus();
             
             if (typeof val == "string")

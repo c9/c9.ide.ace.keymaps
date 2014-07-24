@@ -268,10 +268,7 @@ define(function(require, exports, module) {
             },
             q: function(editor, data) {
                 var page = tabManager.focussedTab;
-                // var corrected = ide.dispatchEvent("beforeclosetab", {
-                //     page: page
-                // });
-                // if (corrected) page = corrected;
+                if (page) return;
                 
                 if (data && data.force)
                     page.document.undoManager.bookmark();
