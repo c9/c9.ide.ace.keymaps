@@ -82,23 +82,27 @@ define(function(require, exports, module) {
                 settings.set("user/ace/@keyboardmode", mode);
             }
     
-            if (mode == "emacs" || mode == "vim") {
-                cli.show();
-                mode = "ace/keyboard/" + mode;
+            if (mode == "emacs" || mode == "vim" || mode == "sublime") {
+                mode = "plugins/c9.ide.ace.keymaps/" + mode + "/keymap";
             } else {
-                cli.hide();
-                if (mode == "sublime")
-                    mode = "plugins/c9.ide.ace.keymaps/sublime/keymap";
-                else
-                    mode = null;
+                mode = null;
             }
             
-            require([mode], function() {
+            if (mode)
+                require([mode], setKeymap);
+            else
+                setKeymap({});
+            
+             function setKeymap(keymap) {
+                if (keymap.showCli)
+                    cli.show();
+                else
+                    cli.hide();
                 (tab ? [tab] : tabManager.getTabs()).forEach(function(tab) {
                     if (tab.editor && tab.editor.type == "ace") {
                         var editor = tab.editor.ace;
                         // Set Mode
-                        editor.setKeyboardHandler(mode);
+                        editor.setKeyboardHandler(keymap.aceKeyboardHandler);
                         
                         editor.showCommandLine = showCommandLine;
                     }
@@ -107,7 +111,7 @@ define(function(require, exports, module) {
                     return;
                 updateIdeKeymap(mode);
                 activeMode = mode;
-            });
+            }
         }
         
         function updateIdeKeymap(path) {
@@ -119,9 +123,10 @@ define(function(require, exports, module) {
                         cmd.bindKey = cmd.originalBindKey;
                 });
                 
-                commands.reset();
-                
                 var kb = path ? require(path) : {};
+                if ("execIdeCommand" in kb)
+                    kb.execIdeCommand = commands.exec;
+                
                 if (kb.ideCommands) {
                     kb.ideCommands.forEach(function(x) {
                         commands.addCommand(x, plugin);
@@ -141,6 +146,8 @@ define(function(require, exports, module) {
                 if (kb.editorKeymap)
                     kb.editorKeymap.forEach(bindKey);
     
+                commands.reset();
+                
                 function bindKey(x) {
                     var cmd = allCommands[x.name];
                     if (cmd && x.bindKey) {
