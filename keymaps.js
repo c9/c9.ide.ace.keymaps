@@ -93,20 +93,20 @@ define(function(require, exports, module) {
                     mode = null;
             }
             
-            (tab ? [tab] : tabManager.getTabs()).forEach(function(tab) {
-                if (tab.editor && tab.editor.type == "ace") {
-                    var editor = tab.editor.ace;
-                    
-                    // Set Mode
-                    editor.setKeyboardHandler(mode, function() {
-                        if (activeMode == mode)
-                            return;
-                        updateIdeKeymap(mode);
-                        activeMode = mode;
-                    });
-                    
-                    editor.showCommandLine = showCommandLine;
-                }
+            require([mode], function() {
+                (tab ? [tab] : tabManager.getTabs()).forEach(function(tab) {
+                    if (tab.editor && tab.editor.type == "ace") {
+                        var editor = tab.editor.ace;
+                        // Set Mode
+                        editor.setKeyboardHandler(mode);
+                        
+                        editor.showCommandLine = showCommandLine;
+                    }
+                });
+                if (activeMode == mode)
+                    return;
+                updateIdeKeymap(mode);
+                activeMode = mode;
             });
         }
         
