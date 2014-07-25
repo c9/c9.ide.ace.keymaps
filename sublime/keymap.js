@@ -472,10 +472,6 @@ exports.editorKeymap = [{
     name: "complete"
 },
 // {
-//     bindKey: {mac: "alt-f2", win: "context_menu"},
-//     name: "context_menu"
-// }, 
-// {
 //     bindKey: {mac: "cmd-c", win: "ctrl-insert|ctrl-c"},
 //     name: "copy"
 // }, {
@@ -770,11 +766,13 @@ exports.editorKeymap = [{
 {
     bindKey: {mac: "f5", win: "f9"},
     name: "sortlines"
-}, {
-    bindKey: {mac: "ctrl-f5", win: "ctrl-f9"},
-    name: "sortlines",
-    args: {case_sensitive: true}
-}, {
+}, 
+// {
+//     bindKey: {mac: "ctrl-f5", win: "ctrl-f9"},
+//     name: "sortlines",
+//     args: {case_sensitive: true}
+// },
+{
     bindKey: {mac: "cmd-shift-l", win: "ctrl-shift-l"},
     name: "splitIntoLines"
 }, {
@@ -838,3 +836,7 @@ exports.editorKeymap = [{
 //     bindKey: {mac: "cmd-alt-o", win: "insert"},
 //     name: "toggle_overwrite"
 // },
+// {
+//     bindKey: {mac: "alt-f2", win: "context_menu"},
+//     name: "context_menu"
+// }, 
