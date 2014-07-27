@@ -268,7 +268,7 @@ define(function(require, exports, module) {
             },
             q: function(editor, data) {
                 var page = tabManager.focussedTab;
-                if (page) return;
+                if (!page) return;
                 
                 if (data && data.force)
                     page.document.undoManager.bookmark();
@@ -445,23 +445,40 @@ define(function(require, exports, module) {
         }
         
         function initCmdLine(cmdLine) {
-            cmdLine.commands.bindKeys({
-                "Shift-Return|Ctrl-Return|Alt-Return": function(cmdLine) { 
+            cmdLine.commands.addCommands([{
+                bindKey: "Shift-Return|Ctrl-Return|Alt-Return",
+                name: "insertNewLine",
+                exec: function(cmdLine) { 
                     cmdLine.insert("\n"); 
                 },
-                "Esc|Shift-Esc|Ctrl-[": function(cmdLine) {
+            }, {
+                bindKey: "Esc|Shift-Esc|Ctrl-[",
+                name: "cancel",
+                exec: function(cmdLine) {
                     endCommandInput(cmdLine);
-                },
-                "Return": function run(cmdLine) {
+                }
+            }, {
+                bindKey: "Return",
+                name: "run",
+                exec: function run(cmdLine) {
                     var editor = cmdLine.editor || getActiveEditor();
                     var tokens = cmdLine.session.getTokens(0);
                     if (editor) editor.cmdLine = cmdLine;
                     processCommandParts(editor, tokens, cmdLine.getValue());
                     endCommandInput(cmdLine);
                 },
-                "Tab": function tabNext(ed) { tabCycle(ed, 1); },
-                "Shift-Tab": function tabPrevious(ed) { tabCycle(ed, -1); },
-                "Right": function arrowCompleteRight(ed) {
+            }, {
+                bindKey: "Tab",
+                name: "tabNext",
+                exec: function tabNext(ed) { tabCycle(ed, 1); },
+            }, {
+                bindKey: "Shift-Tab",
+                name: "tabPrevious",
+                exec: function tabPrevious(ed) { tabCycle(ed, -1); },
+            }, {
+                bindKey: "Right",
+                name: "arrowCompleteRight",
+                exec: function arrowCompleteRight(ed) {
                     var session = ed.session;
                     var col = ed.selection.isEmpty() ? ed.selection.lead.column : -1;
                     ed.navigateRight();
@@ -469,12 +486,23 @@ define(function(require, exports, module) {
                     if (col == ed.selection.lead.column && tok && tok.type == "invisible")
                         session.doc.insertInLine({row:0, column: col}, tok.value);
                 },
-        
-                "Up": function(cmdLine) {cmdLine.navigateHistory(-1)},
-                "Down": function(cmdLine) {cmdLine.navigateHistory(1)},
-                "Ctrl-Home|PageUp": function(cmdLine) {cmdLine.navigateHistory(0)},
-                "Ctrl-End|PageDown": function(cmdLine) {cmdLine.navigateHistory()}
-            });
+            }, {
+                bindKey: "Up",
+                name: "Up",
+                exec: function(cmdLine) {cmdLine.navigateHistory(-1)},
+            }, {
+                bindKey: "Down",
+                name: "Down",
+                exec: function(cmdLine) {cmdLine.navigateHistory(1)},
+            }, {
+                bindKey: "Ctrl-Home|PageUp",
+                name: "firstInHistory",
+                exec: function(cmdLine) {cmdLine.navigateHistory(0)},
+            }, {
+                bindKey: "Ctrl-End|PageDown",
+                name: "lastInHistory",
+                exec: function(cmdLine) {cmdLine.navigateHistory()}
+            }]);
         
             function tabCycle(ed, dir) {
                 var session = ed.session;
