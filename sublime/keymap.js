@@ -563,6 +563,12 @@ exports.editorKeymap = [{
     bindKey: {mac: "shift-alt-cmd-g", win: "ctrl-shift-f3"},
     name: "find_under_prev"
 }, {
+    bindKey: {mac: "cmd-g", win: "f3"},
+    name: "findnext"
+}, {
+    bindKey: {mac: "shift-cmd-g", win: "shift-f3"},
+    name: "findprevious"
+}, {
     bindKey: {mac: "cmd-d", win: "ctrl-d"},
     name: "find_under_expand"
 }, {
