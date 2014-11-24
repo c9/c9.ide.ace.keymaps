@@ -171,17 +171,7 @@ define(function(require, exports, module) {
         cliCmds["/"] = {
             name: "/",
             history: [],
-            cliExec: function(ed, data) {
-                var options = searchStore.options;
-                data = data || this.name;
-                options.backwards = data[0] === "?";
-                data = data.substr(1);
-                if (data)
-                    searchStore.current = data;
-                else
-                    data = searchStore.current;
-                ed.find(data, options);
-            }
+            cliExec: function(ed, data) { }
         };
         
         cliCmds["?"] = {
@@ -718,7 +708,7 @@ define(function(require, exports, module) {
         
             cmdLine.$messageNode = document.createElement("div");
             cmdLine.$messageNode.style.cssText = "position:absolute;"
-                + "color:darkslateblue;padding:0 5px;top:0;font-size:11px";
+                + "opacity:0.8;padding:0 5px;top:0;font-size:11px";
             cmdLine.container.appendChild(cmdLine.$messageNode);
             
             cmdLine.$clearMessageDelayed = lang.delayedCall(function() {
@@ -744,7 +734,7 @@ define(function(require, exports, module) {
         
             cmdLine.commands.removeCommands(
                 ["find", "gotoline", "findall", "replace", "replaceall"]);
-        };
+        }
         
         /***** Lifecycle *****/
         

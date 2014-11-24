@@ -165,11 +165,20 @@ define(function(require, exports, module) {
             });
         }
         
-        function showCommandLine(val) {
+        function showCommandLine(val, options) {
+            if (!options) options = {};
             cli.show();
             this.cmdLine = cli.ace;
             this.cmdLine.editor = this;
-            this.cmdLine.focus();
+            if (options.focus !== false) {
+                this.cmdLine.focus();
+            }
+            if (options.message != null) {
+                if (options.timeout)
+                    cli.ace.setTimedMessage(options.message, options.timeout);
+                else
+                    cli.ace.setMessage(options.message);
+            }
             
             if (typeof val == "string")
                 this.cmdLine.setValue(val, 1);
