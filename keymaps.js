@@ -37,11 +37,12 @@ define(function(require, exports, module) {
                     }
                 }
             });
-            menus.addItemByPath("View/Keyboard Mode/", mnuKbModes, 150000, plugin);
+            menus.addItemByPath("Edit/~", new ui.divider(), 650, plugin);
+            menus.addItemByPath("Edit/Keyboard Mode/", mnuKbModes, 660, plugin);
             
             var c = 1000;
             ["Default", "Vim", "Emacs", "Sublime"].forEach(function(label) {
-                menus.addItemByPath("View/Keyboard Mode/" + label, new ui.item({
+                menus.addItemByPath("Edit/Keyboard Mode/" + label, new ui.item({
                     type: "radio",
                     value: label.toLowerCase(), 
                     onclick: function(e) {
