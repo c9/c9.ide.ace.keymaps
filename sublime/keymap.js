@@ -390,16 +390,26 @@ exports.ideKeymap = [
 
 
 exports.editorCommands = [{
+    name: "find_all_under",
+    exec: function(editor) {
+        if (editor.selection.isEmpty())
+            editor.selection.selectWord();
+        editor.findAll();
+    },
+    readOnly: true
+}, {
     name: "find_under",
     exec: function(editor) {
-        editor.selection.selectWord();
+        if (editor.selection.isEmpty())
+            editor.selection.selectWord();
         editor.findNext();
     },
     readOnly: true
 }, {
     name: "find_under_prev",
     exec: function(editor) {
-        editor.selection.selectWord();
+        if (editor.selection.isEmpty())
+            editor.selection.selectWord();
         editor.findPrevious();
     },
     readOnly: true
