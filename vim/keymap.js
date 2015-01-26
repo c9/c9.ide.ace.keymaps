@@ -2,6 +2,7 @@ define(function(require, exports, module) {
 
 exports.showCli = true;
 var Vim = require("ace/keyboard/vim").Vim;
+var HashHandler = require("ace/keyboard/hash_handler").HashHandler;
 exports.aceKeyboardHandler = require("ace/keyboard/vim").handler;
 
 exports.aceKeyboardHandler.defaultKeymap.unshift(
@@ -59,5 +60,13 @@ exports.map = function(keys, action, context) {
     }
 };
 
+
+exports.treeKeyboardHandler = new HashHandler();
+exports.treeKeyboardHandler.bindKeys({
+    "k": "goUp",
+    "j": "goDown",
+    "h": "levelUp",
+    "l": "levelDown"
+});
 
 });

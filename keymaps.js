@@ -1,7 +1,7 @@
 define(function(require, exports, module) {
     main.consumes = [
         "Plugin", "ui", "ace", "menus", "settings", "vim.cli", "tabManager",
-        "commands", "c9"
+        "commands", "c9", "tree"
     ];
     main.provides = ["keymaps"];
     return main;
@@ -16,6 +16,7 @@ define(function(require, exports, module) {
         var settings = imports.settings;
         var cli = imports["vim.cli"];
         var c9 = imports.c9;
+        var tree = imports.tree; // TODO: find a way to make dependency on tree optional
         
         /***** Initialization *****/
         
@@ -94,7 +95,7 @@ define(function(require, exports, module) {
             else
                 setKeymap({});
             
-             function setKeymap(keymap) {
+            function setKeymap(keymap) {
                 if (keymap.showCli)
                     cli.show();
                 else
@@ -116,6 +117,10 @@ define(function(require, exports, module) {
         }
         
         function updateIdeKeymap(path) {
+            tree.once("ready", function() {
+                var kb = path ? require(path) : {};
+                tree.tree.keyBinding.setKeyboardHandler(kb.treeKeyboardHandler);
+            });
             c9.once("ready", function() {
                 var allCommands = commands.commands;
                 Object.keys(allCommands).forEach(function(name) {
