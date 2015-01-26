@@ -64,12 +64,12 @@ define(function(require, exports, module) {
             
             emit("draw");
         }
-            
+        
         function updateTheme() {
             if (!cmdLine)
                 return;
                 
-            var activeTheme = ace.theme; //themes.getActiveTheme();
+            var activeTheme = ace.theme; // themes.getActiveTheme();
             if (!activeTheme)
                 return;
                 
@@ -86,15 +86,13 @@ define(function(require, exports, module) {
         
         function show(){
             draw();
-            
-            if (layout.clearFindArea(plugin, function(){
-                show();
-            }, true)) return;
-            cmdLine.show();
+            layout.setFindArea(cmdLine, { isDefault: true });
         }
         
         function hide(){
-            cmdLine && cmdLine.hide();
+            if (cmdLine) {
+                layout.setFindArea(null, { isDefault: true });
+            }
         }
         
         function toggle(force, a, b, callback) {
