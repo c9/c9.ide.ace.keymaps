@@ -177,7 +177,7 @@ define(function(require, exports, module) {
             this.cmdLine = cli.ace;
             this.cmdLine.editor = this;
             if (options.focus !== false) {
-                this.cmdLine.focus();
+                cli.aml.focus();
             }
             if (options.message != null) {
                 if (options.timeout)
