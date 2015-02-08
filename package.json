@@ -9,15 +9,13 @@
         "url": "http://github.com/c9/c9.ide.ace.keymaps.git"
     },
     "plugins": {
-        "plugin": {
-            "cli": {},
-            "keymaps": {}
-        }
+        "cli": {},
+        "keymaps": {}
     },
     "categories": [
         "core"
     ],
     "licenses": [
-        ""
+        "MIT"
     ]
 }
