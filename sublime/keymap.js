@@ -430,14 +430,22 @@ exports.editorCommands = [{
 }, {
     name: "delete_to_hard_bol",
     exec: function(editor) {
-        // todo
+        var pos = editor.selection.getCursor();
+        editor.session.remove({
+            start: {row: pos.row, column: 0},
+            end: pos
+        });
     },
     multiSelectAction: "forEach",
     scrollIntoView: "cursor",
 }, {
     name: "delete_to_hard_eol",
     exec: function(editor) {
-        // todo
+        var pos = editor.selection.getCursor();
+        editor.session.remove({
+            start: pos,
+            end: {row: pos.row, column: Infinity}
+        });
     },
     multiSelectAction: "forEach",
     scrollIntoView: "cursor",
