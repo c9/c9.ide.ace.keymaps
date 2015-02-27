@@ -3,22 +3,25 @@ define(function(require, exports, module) {
 exports.showCli = true;
 exports.aceKeyboardHandler = require("ace/keyboard/emacs").handler;
 
-exports.aceKeyboardHandler.addCommand({
+
+var keys = [{
     bindKey: "C-x C-f",
-    name: "navigate",
-    exec: ideCommand
+    name: "navigate"
 }, {
     bindKey: "C-x C-s",
-    name: "save",
-    exec: ideCommand
+    name: "save"
 }, {
     bindKey: "C-x s",
-    name: "saveall",
-    exec: ideCommand
+    name: "saveall"
 }, {
     bindKey: "C-x C-w",
-    name: "saveas",
-    exec: ideCommand
+    name: "saveas"
+}];
+keys.forEach(function(item) {
+    exports.aceKeyboardHandler.bindKey(item.bindKey, {
+        name: item.name,
+        exec: ideCommand
+    });
 });
 
 // todo find a way to integrate ide commands with vim and emacs modes
