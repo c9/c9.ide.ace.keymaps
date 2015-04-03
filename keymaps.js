@@ -100,6 +100,7 @@ define(function(require, exports, module) {
                     cli.show();
                 else
                     cli.hide();
+                
                 (tab ? [tab] : tabManager.getTabs()).forEach(function(tab) {
                     if (tab.editor && tab.editor.type == "ace") {
                         var editor = tab.editor.ace;
@@ -109,8 +110,10 @@ define(function(require, exports, module) {
                         editor.showCommandLine = showCommandLine;
                     }
                 });
+                
                 if (activeMode == mode)
                     return;
+                    
                 updateIdeKeymap(mode);
                 activeMode = mode;
             }
