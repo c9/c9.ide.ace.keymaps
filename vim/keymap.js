@@ -12,13 +12,13 @@ exports.aceKeyboardHandler.defaultKeymap.unshift(
 );
 
 exports.aceKeyboardHandler.defaultKeymap.push(
-    {keys: 'gt', type: 'action', action: 'aceCommand', actionArgs: {exec: ideCommand, name: 'gototableft'}},
-    {keys: 'gT', type: 'action', action: 'aceCommand', actionArgs: {exec: ideCommand, name: 'gototabright'}}
+    {keys: 'gt', type: 'action', action: 'aceCommand', actionArgs: {exec: ideCommand, name: 'gototabright', args: {editorType: "ace"}}},
+    {keys: 'gT', type: 'action', action: 'aceCommand', actionArgs: {exec: ideCommand, name: 'gototableft', args: {editorType: "ace"}}}
 );
 
 exports.execIdeCommand = null;
 function ideCommand() {
-    exports.execIdeCommand(this.name);
+    exports.execIdeCommand(this.name, null, this.args);
 }
 /**
  *  require(["plugins/c9.ide.ace.keymaps/vim/keymap"], function(vim) {

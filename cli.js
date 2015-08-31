@@ -269,10 +269,10 @@ define(function(require, exports, module) {
             tabn: "gototabright",
             tabp: "gototableft",
             tabfirst: function() {
-                tabbehavior.cycleTab("first");
+                tabbehavior.cycleTab("first", {editorType: "ace"});
             },
             tablast: function() {
-                tabbehavior.cycleTab("last");
+                tabbehavior.cycleTab("last", {editorType: "ace"});
             },
             tabnew: function(editor, data) {
                 var path = data.argv[1];
@@ -283,7 +283,8 @@ define(function(require, exports, module) {
                             meta: {
                                 newfile: true
                             }
-                        }
+                        },
+                        focus: true
                     });
                 }
                 else {
@@ -298,6 +299,7 @@ define(function(require, exports, module) {
         };
         
         // aliases
+        cliCmds[":"].commands["tab drop"] = cliCmds[":"].commands.e;
         cliCmds[":"].commands.write = cliCmds[":"].commands.w;
         cliCmds[":"].commands.tabNext = cliCmds[":"].commands.tabn;
         cliCmds[":"].commands.tabPrevious = cliCmds[":"].commands.tabp;
