@@ -254,6 +254,9 @@ define(function(require, exports, module) {
                     cliCmds[":"].commands.q();
                 });
             },
+            wa: function(editor, data) {
+                commands.exec("saveall");
+            },
             q: function(editor, data) {
                 var page = tabManager.focussedTab;
                 if (!page) return;
@@ -295,7 +298,10 @@ define(function(require, exports, module) {
             tabmove: function(editor, data) {
                 // todo
             },
-            ascii: cliCmds.ascii
+            ascii: cliCmds.ascii,
+            sort: function(editor, data) {
+                commands.exec("sortlines");
+            },
         };
         
         // aliases
