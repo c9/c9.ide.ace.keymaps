@@ -20,6 +20,7 @@ define(function(require, exports, module) {
         
         var Editor = require("ace/editor").Editor;
         var lang = require("ace/lib/lang");
+        var pathLib = require("path");
 
         /***** Initialization *****/
         
@@ -188,24 +189,23 @@ define(function(require, exports, module) {
         
         cliCmds[":"].commands = {
             w: function(editor, data, callback) {
-                var page = tabManager.focussedTab;
-                if (!page)
+                var tab = tabManager.focussedTab;
+                if (!tab || !tab.path)
                     return;
-        
                 var lines = editor.session.getLength();
-                if (data.argv.length === 2) {
-                    var path = ("/" + data.argv[1]).replace(/\/+/, "/");
+                if (data.argv.length === 2 && data.argv[1]) {
+                    var path = pathLib.join(pathLib.dirname(tab.path), data.argv[1]);
         
-                    save.save(page, { path : path }, function(err) {
-                        // @todo handle error
-                        console.log(path + " [New] " + lines + "L, ##C written");
+                    save.save(tab, { path : path }, function(err) {
+                        if (!err)
+                            editor.cmdLine.setTimedMessage(path + " [New] " + lines + "L, ##C written to ");
                         callback && callback();
                     });
                 }
                 else {
-                    save.save(page, {}, function(err) {
-                        // @todo handle error
-                        console.log(page.name + " " + lines +"L, ##C written");
+                    save.save(tab, {}, function(err) {
+                        if (!err)
+                            editor.cmdLine.setTimedMessage(tab.path + " " + lines +"L, ##C written");
                         callback && callback();
                     });
                 }
@@ -217,14 +217,16 @@ define(function(require, exports, module) {
                     return false;
                 }
                 else {
-                    path = ("/" + path).replace(/\/+/, "/");
+                    var currentPath = tabManager.focussedTab && tabManager.focussedTab.path || "/";
+                    path = pathLib.join(pathLib.dirname(currentPath), data.argv[1]);
                     fs.exists(path, function(exists) {
                         if (exists) {
-                            tabManager.openFile(path, true, function(){});
+                            tabManager.openFile(path, {focus: true}, function(){});
                         }
                         else {
                             tabManager.open({
                                 path: path,
+                                focus: true,
                                 document: {
                                     meta: {
                                         newfile: true,
