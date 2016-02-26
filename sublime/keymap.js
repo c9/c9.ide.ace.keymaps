@@ -331,6 +331,10 @@ exports.ideKeymap = [
 //     name: "toggle_bookmark"
 // }, 
 
+{
+    bindKey: {mac: "cmd-e", win: "ctrl-e"},
+    name: "revealtab" // todo
+}, 
 
 /* find replace */
 {
