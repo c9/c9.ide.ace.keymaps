@@ -1,7 +1,7 @@
 define(function(require, exports, module) {
     main.consumes = [
         "Plugin", "ui", "ace", "menus", "settings", "vim.cli", "tabManager",
-        "commands", "c9", "tree"
+        "commands", "c9", "tree", "dialog.error"
     ];
     main.provides = ["keymaps"];
     return main;
@@ -17,6 +17,7 @@ define(function(require, exports, module) {
         var cli = imports["vim.cli"];
         var c9 = imports.c9;
         var tree = imports.tree; // TODO: find a way to make dependency on tree optional
+        var showError = imports["dialog.error"].show;
         
         /***** Initialization *****/
         
@@ -69,6 +70,8 @@ define(function(require, exports, module) {
             }, plugin);
     
             ace.on("create", function(e){ setMode(null, e); }, plugin);
+            
+            setTimeout(checkHostileExtensions, 1000);
         }
         
         /***** Methods *****/
@@ -208,6 +211,20 @@ define(function(require, exports, module) {
         function findEditor(editor) {
             return editor && editor.ace || editor;
         }
+        
+        function checkHostileExtensions() {
+            var messages = [];
+            try {
+                var d = document.body.nextSibling;
+                if (d && d.shadowRoot && d.shadowRoot.querySelector
+                    && d.shadowRoot.querySelector("[class*=vimium]")) {
+                    messages.push("Vimium breaks cloud9 keyboard shortcuts, please disable it on this site.");
+                }
+            } catch(e) {
+            }
+            if (messages.length)
+                showError(messages.join("\n"));
+        }
 
         /***** Lifecycle *****/
         
@@ -221,6 +238,7 @@ define(function(require, exports, module) {
             
         });
         plugin.on("unload", function() {
+            currentMode = activeMode = null;
             loaded = false;
         });
         
