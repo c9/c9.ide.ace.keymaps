@@ -1,9 +1,9 @@
 var fs = require("fs");
 var base = __dirname;
-var commands = {}
+var commands = {};
 fs.readdirSync(base).map(function(p) {
     if (/.sublime-keymap/.test(p)) {
-        var a = eval(fs.readFileSync(base + "/" + p, "utf8"))
+        var a = eval(fs.readFileSync(base + "/" + p, "utf8"));
         a.name = /\((\w+)\)/.exec(p)[1].toLowerCase();
         if (a.name == "osx") a.name = "mac";
         if (a.name == "windows") a.name = "win";
@@ -11,7 +11,7 @@ fs.readdirSync(base).map(function(p) {
     }
 }).filter(Boolean).map(function(keyMap) {
     keyMap.forEach(function(sublKey) {
-        var name = sublKey.command
+        var name = sublKey.command;
         var args = sublKey.args ? JSON.stringify(sublKey.args) : "";
         var id = name + args;
         var o = commands[id] || (commands[id] = {
@@ -32,8 +32,8 @@ fs.readdirSync(base).map(function(p) {
             o.context = sublKey.context;
         if (sublKey.args)
             o.args = sublKey.args;
-    })  
-})
+    });  
+});
 
 commands = Object.keys(commands).map(function(id) {
     var cmd = commands[id];    
@@ -57,12 +57,12 @@ commands = Object.keys(commands).map(function(id) {
     
     if (a.args && !b.args) return 1;
     if (!a.args && b.args) return -1;
-}).filter(function(x){
+}).filter(function(x) {
     // filter out brace pairing commands as they are handled elsewhere
     return !/^(["'\[\]{}()\/](\|["'\[\]{}()\/])*|(escape))$/.test(x.bindKey.mac); 
 }).filter(function(x) {
     // filter out completion commands
-    return !/(^|_)completion($|_)/.test(x.name)
+    return !/(^|_)completion($|_)/.test(x.name);
 });
 
 void function group() {
@@ -97,7 +97,7 @@ var cmdString = JSON.stringify(commands, null, 4)
     .replace(/},\s*{/g, "}, {")
     .replace(/\[\s*{/g, "[{")
     .replace(/}\s*]/g, "}]")
-    .replace(/^ {4}/gm, "")
+    .replace(/^ {4}/gm, "");
 fs.writeFileSync("keymap", cmdString, "utf8");
 
 function convertKeys(sublKeys) {
@@ -128,5 +128,5 @@ function convertKeys(sublKeys) {
         return combo.split("+").map(function(key) {
             return sublimeToAceKey[key] || key;
         }).join("-");
-    }).join(" ")
+    }).join(" ");
 }

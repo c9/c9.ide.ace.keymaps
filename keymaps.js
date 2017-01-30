@@ -32,7 +32,7 @@ define(function(require, exports, module) {
             loaded = true;
             
             var mnuKbModes = new ui.menu({
-                "onprop.visible" : function(e) {
+                "onprop.visible": function(e) {
                     if (e.value) {
                         var value = settings.get("user/ace/@keyboardmode");
                         mnuKbModes.select(null, value);
@@ -53,7 +53,7 @@ define(function(require, exports, module) {
                 }), c += 100, plugin);
             });
             
-            settings.on("read", function(){
+            settings.on("read", function() {
                 settings.setDefaults("user/ace", [
                     ["keyboardmode", "default"]
                 ]);
@@ -63,13 +63,13 @@ define(function(require, exports, module) {
                     setMode(mode);
             }, plugin);
             
-            settings.on("user/ace", function(){
+            settings.on("user/ace", function() {
                 var mode = settings.get("user/ace/@keyboardmode");
                 if (currentMode != mode)
                     setMode(mode);
             }, plugin);
     
-            ace.on("create", function(e){ setMode(null, e); }, plugin);
+            ace.on("create", function(e) { setMode(null, e); }, plugin);
             
             setTimeout(checkHostileExtensions, 1000);
         }
@@ -220,7 +220,7 @@ define(function(require, exports, module) {
                     && d.shadowRoot.querySelector("[class*=vimium]")) {
                     messages.push("Vimium breaks cloud9 keyboard shortcuts, please disable it on this site.");
                 }
-            } catch(e) {
+            } catch (e) {
             }
             if (messages.length)
                 showError(messages.join("\n"));

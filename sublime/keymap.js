@@ -35,39 +35,39 @@ exports.ideKeymap = [
 
 {
     // todo
-    bindKey: {mac: "cmd-ctrl-p", win: "ctrl-alt-p"},
+    bindKey: { mac: "cmd-ctrl-p", win: "ctrl-alt-p" },
     name: "prompt_select_workspace"
 }, {
-    bindKey: {mac: "cmd-shift-t", win: "ctrl-shift-t"},
+    bindKey: { mac: "cmd-shift-t", win: "ctrl-shift-t" },
     name: "reopenLastTab"
 },
 
 {
-    bindKey: {mac: "f7|cmd-b", win: "f7|ctrl-b"},
+    bindKey: { mac: "f7|cmd-b", win: "f7|ctrl-b" },
     name: "build"
 }, {
-    bindKey: {mac: "cmd-shift-b", win: "ctrl-shift-b"},
+    bindKey: { mac: "cmd-shift-b", win: "ctrl-shift-b" },
     name: "run"
 }, {
-    bindKey: {mac: "ctrl-break", win: "ctrl-break"},
+    bindKey: { mac: "ctrl-break", win: "ctrl-break" },
     name: "stopbuild"
 },
 
 {
-    bindKey: {mac: "cmd-t|cmd-p", win: "ctrl-p"},
+    bindKey: { mac: "cmd-t|cmd-p", win: "ctrl-p" },
     name: "navigate"
 }, {
-    bindKey: {mac: "cmd-r", win: "ctrl-r"},
+    bindKey: { mac: "cmd-r", win: "ctrl-r" },
     name: "outline",
-    args: {overlay: "goto", text: "@"}
-},  {
-    bindKey: {mac: "cmd-shift-r", win: "ctrl-shift-r"},
+    args: { overlay: "goto", text: "@" }
+}, {
+    bindKey: { mac: "cmd-shift-r", win: "ctrl-shift-r" },
     // todo: this should be project outline
     name: "outline"
 }, {
-    bindKey: {mac: "ctrl-g", win: "ctrl-g"},
+    bindKey: { mac: "ctrl-g", win: "ctrl-g" },
     name: "gotoline",
-    args: {overlay: "goto", text: ":"}
+    args: { overlay: "goto", text: ":" }
 }, 
 // todo what is this?
 // {
@@ -76,18 +76,18 @@ exports.ideKeymap = [
 //     args: {overlay: "goto", text: "#"}
 // },
 {
-    bindKey: {mac: "cmd-shift-p", win: "ctrl-shift-p"},
+    bindKey: { mac: "cmd-shift-p", win: "ctrl-shift-p" },
     name: "commands"
 }, {
-    bindKey: {mac: "ctrl-`", win: "ctrl-`"},
+    bindKey: { mac: "ctrl-`", win: "ctrl-`" },
     name: "toggleconsole"
-},  {
-    bindKey: {mac: "cmd-k cmd-b", win: "ctrl-k ctrl-b"},
+}, {
+    bindKey: { mac: "cmd-k cmd-b", win: "ctrl-k ctrl-b" },
     name: "toggletree"
 },
 
 {
-    bindKey: {mac: "f12|cmd-alt-down", win: "f12"},
+    bindKey: { mac: "f12|cmd-alt-down", win: "f12" },
     name: "jumptodef"
 },
 
@@ -271,16 +271,16 @@ exports.ideKeymap = [
 // }, 
 
 {
-    bindKey: {mac: "cmd-shift-]|cmd-alt-right", win: "ctrl-pagedown"},
+    bindKey: { mac: "cmd-shift-]|cmd-alt-right", win: "ctrl-pagedown" },
     name: "gototabright"
 }, {
-    bindKey: {mac: "cmd-shift-[|cmd-alt-left", win: "ctrl-pageup"},
+    bindKey: { mac: "cmd-shift-[|cmd-alt-left", win: "ctrl-pageup" },
     name: "gototableft"
 }, {
-    bindKey: {mac: "ctrl-tab", win: "ctrl-tab"},
+    bindKey: { mac: "ctrl-tab", win: "ctrl-tab" },
     name: "nexttab"
 }, {
-    bindKey: {mac: "ctrl-shift-tab", win: "ctrl-shift-tab"},
+    bindKey: { mac: "ctrl-shift-tab", win: "ctrl-shift-tab" },
     name: "previoustab"
 }, 
 
@@ -289,7 +289,7 @@ exports.ideKeymap = [
     name: "nextpane"
 },
 {
-    bindKey: {mac: "ctrl+alt+f", win: "ctrl+alt+f"}, // shortcut from codeformatter plugin
+    bindKey: { mac: "ctrl+alt+f", win: "ctrl+alt+f" }, // shortcut from codeformatter plugin
     name: "formatcode"
 },
 
@@ -301,10 +301,10 @@ exports.ideKeymap = [
 // }, 
 
 {
-    bindKey: {linux: "ctrl--", mac: "cmd--", win: "ctrl--|ctrl-shift-=|ctrl-shift-+"},
+    bindKey: { linux: "ctrl--", mac: "cmd--", win: "ctrl--|ctrl-shift-=|ctrl-shift-+" },
     name: "smallerfont"
 }, {
-    bindKey: {linux: "ctrl--|ctrl-=", mac: "cmd-=|cmd-+", win: "ctrl--|ctrl-=|ctrl-+"},
+    bindKey: { linux: "ctrl--|ctrl-=", mac: "cmd-=|cmd-+", win: "ctrl--|ctrl-=|ctrl-+" },
     name: "largerfont"
 }, 
 
@@ -332,31 +332,31 @@ exports.ideKeymap = [
 // }, 
 
 {
-    bindKey: {mac: "cmd-e", win: "ctrl-e"},
+    bindKey: { mac: "cmd-e", win: "ctrl-e" },
     name: "revealtab" // todo
 }, 
 
 /* find replace */
 {
-    bindKey: {mac: "cmd-alt-f", win: "ctrl-h"},
+    bindKey: { mac: "cmd-alt-f", win: "ctrl-h" },
     name: "replace"
 }, {
-    bindKey: {mac: "cmd-alt-e", win: "ctrl-shift-h"},
+    bindKey: { mac: "cmd-alt-e", win: "ctrl-shift-h" },
     name: "replacenext"
 }, {
-    bindKey: {mac: "cmd-e", win: "ctrl-e"},
+    bindKey: { mac: "cmd-e", win: "ctrl-e" },
     name: "slurp_find_string" // todo
 }, {
-    bindKey: {mac: "cmd-shift-e", win: "ctrl-shift-e"},
+    bindKey: { mac: "cmd-shift-e", win: "ctrl-shift-e" },
     name: "slurp_replace_string"
 }, {
-    bindKey: {mac: "ctrl-alt-enter", win: "ctrl-alt-enter"},
+    bindKey: { mac: "ctrl-alt-enter", win: "ctrl-alt-enter" },
     name: "replaceall"
 }, {
-    bindKey: {mac: "cmd-f", win: "ctrl-f"},
+    bindKey: { mac: "cmd-f", win: "ctrl-f" },
     name: "find"
 }, {
-    bindKey: {mac: "cmd-shift-f", win: "ctrl-shift-f"},
+    bindKey: { mac: "cmd-shift-f", win: "ctrl-shift-f" },
     name: "searchinfiles",
 }, 
 // {
@@ -436,7 +436,7 @@ exports.editorCommands = [{
     exec: function(editor) {
         var pos = editor.selection.getCursor();
         editor.session.remove({
-            start: {row: pos.row, column: 0},
+            start: { row: pos.row, column: 0 },
             end: pos
         });
     },
@@ -448,7 +448,7 @@ exports.editorCommands = [{
         var pos = editor.selection.getCursor();
         editor.session.remove({
             start: pos,
-            end: {row: pos.row, column: Infinity}
+            end: { row: pos.row, column: Infinity }
         });
     },
     multiSelectAction: "forEach",
@@ -490,7 +490,7 @@ exports.editorCommands = [{
 
 /* editor commands */
 exports.editorKeymap = [{
-    bindKey: {linux: "alt-/|ctrl-space", mac: "ctrl-space", win: "ctrl-space"},
+    bindKey: { linux: "alt-/|ctrl-space", mac: "ctrl-space", win: "ctrl-space" },
     name: "complete"
 },
 // {
@@ -544,18 +544,18 @@ exports.editorKeymap = [{
 //     name: "right_delete"
 // }, 
 {
-    bindKey: {mac: "cmd-k cmd-backspace|cmd-backspace", win: "ctrl-shift-backspace|ctrl-k ctrl-backspace"},
+    bindKey: { mac: "cmd-k cmd-backspace|cmd-backspace", win: "ctrl-shift-backspace|ctrl-k ctrl-backspace" },
     name: "delete_to_hard_bol"
 }, {
-    bindKey: {mac: "cmd-k cmd-k|cmd-delete|ctrl-k", win: "ctrl-shift-delete|ctrl-k ctrl-k"},
+    bindKey: { mac: "cmd-k cmd-k|cmd-delete|ctrl-k", win: "ctrl-shift-delete|ctrl-k ctrl-k" },
     name: "delete_to_hard_eol"
 }, 
 
 {
-    bindKey: {mac: "cmd-shift-d", win: "ctrl-shift-d"},
+    bindKey: { mac: "cmd-shift-d", win: "ctrl-shift-d" },
     name: "duplicateSelection"
 }, {
-    bindKey: {mac: "cmd-l", win: "ctrl-l"},
+    bindKey: { mac: "cmd-l", win: "ctrl-l" },
     name: "expandtoline",
 }, 
 // {
@@ -576,42 +576,42 @@ exports.editorKeymap = [{
 //     args: {to: "scope"}
 // },
 {
-    bindKey: {mac: "ctrl-cmd-g", win: "alt-f3"},
+    bindKey: { mac: "ctrl-cmd-g", win: "alt-f3" },
     name: "find_all_under"
 }, {
-    bindKey: {mac: "alt-cmd-g", win: "ctrl-f3"},
+    bindKey: { mac: "alt-cmd-g", win: "ctrl-f3" },
     name: "find_under"
 }, {
-    bindKey: {mac: "shift-alt-cmd-g", win: "ctrl-shift-f3"},
+    bindKey: { mac: "shift-alt-cmd-g", win: "ctrl-shift-f3" },
     name: "find_under_prev"
 }, {
-    bindKey: {mac: "cmd-g", win: "f3"},
+    bindKey: { mac: "cmd-g", win: "f3" },
     name: "findnext"
 }, {
-    bindKey: {mac: "shift-cmd-g", win: "shift-f3"},
+    bindKey: { mac: "shift-cmd-g", win: "shift-f3" },
     name: "findprevious"
 }, {
-    bindKey: {mac: "cmd-d", win: "ctrl-d"},
+    bindKey: { mac: "cmd-d", win: "ctrl-d" },
     name: "find_under_expand"
 }, {
-    bindKey: {mac: "cmd-k cmd-d", win: "ctrl-k ctrl-d"},
+    bindKey: { mac: "cmd-k cmd-d", win: "ctrl-k ctrl-d" },
     name: "find_under_expand_skip"
 }, 
 
 /* fold */
 {
-    bindKey: {mac: "cmd-alt-[", win: "ctrl-shift-["},
+    bindKey: { mac: "cmd-alt-[", win: "ctrl-shift-[" },
     name: "toggleFoldWidget"
 }, {
-    bindKey: {mac: "cmd-alt-]", win: "ctrl-shift-]"},
+    bindKey: { mac: "cmd-alt-]", win: "ctrl-shift-]" },
     name: "unfold"
 }, {
-    bindKey: {mac: "cmd-k cmd-0|cmd-k cmd-j", win: "ctrl-k ctrl-0|ctrl-k ctrl-j"},
+    bindKey: { mac: "cmd-k cmd-0|cmd-k cmd-j", win: "ctrl-k ctrl-0|ctrl-k ctrl-j" },
     name: "unfoldall"
 }, {
-    bindKey: {mac: "cmd-k cmd-1", win: "ctrl-k ctrl-1"},
+    bindKey: { mac: "cmd-k cmd-1", win: "ctrl-k ctrl-1" },
     name: "foldOther",
-    args: {level: 1}
+    args: { level: 1 }
 },
 // {
 //     bindKey: {mac: "cmd-k cmd-2", win: "ctrl-k ctrl-2"},
@@ -652,16 +652,16 @@ exports.editorKeymap = [{
 
 /* move */
 {
-    bindKey: {win: "ctrl-left", mac: "alt-left"},
+    bindKey: { win: "ctrl-left", mac: "alt-left" },
     name: "moveToWordStartLeft"
 }, {
-    bindKey: {win: "ctrl-right", mac: "alt-right"},
+    bindKey: { win: "ctrl-right", mac: "alt-right" },
     name: "moveToWordEndRight"
 }, {
-    bindKey: {win: "ctrl-shift-left", mac: "alt-shift-left"},
+    bindKey: { win: "ctrl-shift-left", mac: "alt-shift-left" },
     name: "selectToWordStartLeft",
 }, {
-    bindKey: {win: "ctrl-shift-right", mac: "alt-shift-right"},
+    bindKey: { win: "ctrl-shift-right", mac: "alt-shift-right" },
     name: "selectToWordEndRight",
 }, 
 
@@ -684,21 +684,21 @@ exports.editorKeymap = [{
 //     args: {by: "subwords", forward: false}
 // }, 
 {
-    bindKey: {mac: "ctrl-m", win: "ctrl-m"},
+    bindKey: { mac: "ctrl-m", win: "ctrl-m" },
     name: "jumptomatching",
-    args: {to: "brackets"}
+    args: { to: "brackets" }
 }, 
 /* other */
 {
-    bindKey: {mac: "ctrl-f6", win: "ctrl-f6"},
+    bindKey: { mac: "ctrl-f6", win: "ctrl-f6" },
     name: "goToNextError"
 }, {
-    bindKey: {mac: "ctrl-shift-f6", win: "ctrl-shift-f6"},
+    bindKey: { mac: "ctrl-shift-f6", win: "ctrl-shift-f6" },
     name: "goToPreviousError"
 },
 
 {
-    bindKey: {mac: "ctrl-o"},
+    bindKey: { mac: "ctrl-o" },
     name: "splitline",
 }, 
 // {
@@ -710,7 +710,7 @@ exports.editorKeymap = [{
 //     name: "close_tag"
 // }, 
 {
-    bindKey: {mac: "cmd-j", win: "ctrl-j"},
+    bindKey: { mac: "cmd-j", win: "ctrl-j" },
     name: "joinlines"
 }, 
 
@@ -723,10 +723,10 @@ exports.editorKeymap = [{
 // }, 
 
 {
-    bindKey: {mac: "cmd-k cmd-l", win: "ctrl-k ctrl-l"},
+    bindKey: { mac: "cmd-k cmd-l", win: "ctrl-k ctrl-l" },
     name: "tolowercase"
 }, {
-    bindKey: {mac: "cmd-k cmd-u", win: "ctrl-k ctrl-u"},
+    bindKey: { mac: "cmd-k cmd-u", win: "ctrl-k ctrl-u" },
     name: "touppercase"
 }, 
 
@@ -760,39 +760,39 @@ exports.editorKeymap = [{
 // }, 
 
 {
-    bindKey: {mac: "cmd-shift-enter", win: "ctrl-shift-enter"},
+    bindKey: { mac: "cmd-shift-enter", win: "ctrl-shift-enter" },
     name: "addLineBefore"
 }, {
-    bindKey: {mac: "cmd-enter", win: "ctrl-enter"},
+    bindKey: { mac: "cmd-enter", win: "ctrl-enter" },
     name: "addLineAfter"
 }, {
-    bindKey: {mac: "ctrl-shift-k", win: "ctrl-shift-k"},
+    bindKey: { mac: "ctrl-shift-k", win: "ctrl-shift-k" },
     name: "removeline"
 }, {
-    bindKey: {mac: "ctrl-alt-up", win: "ctrl-up"},
+    bindKey: { mac: "ctrl-alt-up", win: "ctrl-up" },
     name: "scrollup",
 }, {
-    bindKey: {mac: "ctrl-alt-down", win: "ctrl-down"},
+    bindKey: { mac: "ctrl-alt-down", win: "ctrl-down" },
     name: "scrolldown",
 }, {
-    bindKey: {mac: "cmd-a", win: "ctrl-a"},
+    bindKey: { mac: "cmd-a", win: "ctrl-a" },
     name: "selectall"
 }, {
-    bindKey: {linux: "alt-shift-down", mac: "ctrl-shift-down", win: "ctrl-alt-down"},
+    bindKey: { linux: "alt-shift-down", mac: "ctrl-shift-down", win: "ctrl-alt-down" },
     name: "addCursorBelow",
 }, {
-    bindKey: {linux: "alt-shift-up", mac: "ctrl-shift-up", win: "ctrl-alt-up"},
+    bindKey: { linux: "alt-shift-up", mac: "ctrl-shift-up", win: "ctrl-alt-up" },
     name: "addCursorAbove",
 },
 
 
 {
-    bindKey: {mac: "cmd-k cmd-c|ctrl-l", win: "ctrl-k ctrl-c"},
+    bindKey: { mac: "cmd-k cmd-c|ctrl-l", win: "ctrl-k ctrl-c" },
     name: "centerselection"
 }, 
 
 {
-    bindKey: {mac: "f5", win: "f9"},
+    bindKey: { mac: "f5", win: "f9" },
     name: "sortlines"
 }, 
 // {
@@ -801,42 +801,42 @@ exports.editorKeymap = [{
 //     args: {case_sensitive: true}
 // },
 {
-    bindKey: {mac: "cmd-shift-l", win: "ctrl-shift-l"},
+    bindKey: { mac: "cmd-shift-l", win: "ctrl-shift-l" },
     name: "splitIntoLines"
 }, {
-    bindKey: {mac: "ctrl-cmd-down", win: "ctrl-shift-down"},
+    bindKey: { mac: "ctrl-cmd-down", win: "ctrl-shift-down" },
     name: "movelinesdown"
 }, {
-    bindKey: {mac: "ctrl-cmd-up", win: "ctrl-shift-up"},
+    bindKey: { mac: "ctrl-cmd-up", win: "ctrl-shift-up" },
     name: "movelinesup"
 }, {
-    bindKey: {mac: "alt-down", win: "alt-down"},
+    bindKey: { mac: "alt-down", win: "alt-down" },
     name: "modifyNumberDown"
 }, {
-    bindKey: {mac: "alt-up", win: "alt-up"},
+    bindKey: { mac: "alt-up", win: "alt-up" },
     name: "modifyNumberUp"
 }, {
-    bindKey: {mac: "cmd-/", win: "ctrl-/"},
+    bindKey: { mac: "cmd-/", win: "ctrl-/" },
     name: "togglecomment"
 }, {
-    bindKey: {mac: "cmd-alt-/", win: "ctrl-shift-/"},
+    bindKey: { mac: "cmd-alt-/", win: "ctrl-shift-/" },
     name: "toggleBlockComment"
 },
 
 
 {
-    bindKey: {linux: "ctrl-alt-q", mac: "ctrl-q", win: "ctrl-q"},
+    bindKey: { linux: "ctrl-alt-q", mac: "ctrl-q", win: "ctrl-q" },
     // name: "toggle_record_macro"
     name: "togglerecording"
 }, {
-    bindKey: {linux: "ctrl-alt-shift-q", mac: "ctrl-shift-q", win: "ctrl-shift-q"},
+    bindKey: { linux: "ctrl-alt-shift-q", mac: "ctrl-shift-q", win: "ctrl-shift-q" },
     // name: "run_macro"
     name: "replaymacro"
 }, 
 
 
 {
-    bindKey: {mac: "ctrl-t", win: "ctrl-t"},
+    bindKey: { mac: "ctrl-t", win: "ctrl-t" },
     name: "transpose"
 }
 

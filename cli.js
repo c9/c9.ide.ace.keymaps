@@ -85,12 +85,12 @@ define(function(require, exports, module) {
                 : ui.setStyleClass(htmlNode, "", ["dark"]);
         }
         
-        function show(){
+        function show() {
             draw();
             layout.setFindArea(cmdLine, { isDefault: true });
         }
         
-        function hide(){
+        function hide() {
             if (cmdLine) {
                 layout.setFindArea(null, { isDefault: true });
             }
@@ -117,9 +117,9 @@ define(function(require, exports, module) {
                     var c = editor.getCursorPosition();
                     var ch = editor.session.getLine(c.row)[c.column - 1] || "\n";
                     var code = ch.charCodeAt(0);
-                    var msg = JSON.stringify(ch).slice(1,-1) + "=" + " ";
+                    var msg = JSON.stringify(ch).slice(1, -1) + "=" + " ";
                     var str = code.toString(16);
-                    str = [,"\\x0","\\x", "\\u0", "\\u"][str.length] + str;
+                    str = [, "\\x0", "\\x", "\\u0", "\\u"][str.length] + str;
                     msg += str + " ";
                     msg += "\\" + code.toString(8) + " ";
                     msg += "&#" + code + ";";
@@ -196,7 +196,7 @@ define(function(require, exports, module) {
                 if (data.argv.length === 2 && data.argv[1]) {
                     var path = pathLib.join(pathLib.dirname(tab.path), data.argv[1]);
         
-                    save.save(tab, { path : path }, function(err) {
+                    save.save(tab, { path: path }, function(err) {
                         if (!err)
                             editor.cmdLine.setTimedMessage(path + " [New] " + lines + "L, ##C written to ");
                         callback && callback();
@@ -205,7 +205,7 @@ define(function(require, exports, module) {
                 else {
                     save.save(tab, {}, function(err) {
                         if (!err)
-                            editor.cmdLine.setTimedMessage(tab.path + " " + lines +"L, ##C written");
+                            editor.cmdLine.setTimedMessage(tab.path + " " + lines + "L, ##C written");
                         callback && callback();
                     });
                 }
@@ -221,7 +221,7 @@ define(function(require, exports, module) {
                     path = pathLib.join(pathLib.dirname(currentPath), data.argv[1]);
                     fs.exists(path, function(exists) {
                         if (exists) {
-                            tabManager.openFile(path, {focus: true}, function(){});
+                            tabManager.openFile(path, { focus: true }, function() {});
                         }
                         else {
                             tabManager.open({
@@ -252,7 +252,7 @@ define(function(require, exports, module) {
                 }
             },
             wq: function(editor, data) {
-                cliCmds[":"].commands.w(editor, data, function(){
+                cliCmds[":"].commands.w(editor, data, function() {
                     cliCmds[":"].commands.q();
                 });
             },
@@ -274,10 +274,10 @@ define(function(require, exports, module) {
             tabn: "gototabright",
             tabp: "gototableft",
             tabfirst: function() {
-                tabbehavior.cycleTab("first", {editorType: "ace"});
+                tabbehavior.cycleTab("first", { editorType: "ace" });
             },
             tablast: function() {
-                tabbehavior.cycleTab("last", {editorType: "ace"});
+                tabbehavior.cycleTab("last", { editorType: "ace" });
             },
             tabnew: function(editor, data) {
                 var path = data.argv[1];
@@ -325,7 +325,7 @@ define(function(require, exports, module) {
             exec: function(ed, args) {
                 var optName = args.argv[1];
                 var optval = optName.slice(0, 2) != "no";
-                if (optName[optName.length-1] == "!") {
+                if (optName[optName.length - 1] == "!") {
                     var toggle = true;
                     optName = optName.slice(0, -1);
                 }
@@ -362,14 +362,14 @@ define(function(require, exports, module) {
             if (this.commands[cmd]) {
                 cmd = this.commands[cmd];
                 if (typeof cmd == "string")
-                    return commands.exec(cmd, null, {argv: args});
+                    return commands.exec(cmd, null, { argv: args });
                 else if (typeof cmd == "function")
-                    return cmd(ed, {argv: args});
+                    return cmd(ed, { argv: args });
                 else if (cmd.exec)
-                    return cmd.exec(ed, {argv: args});
+                    return cmd.exec(ed, { argv: args });
             }
             else if (commands.commands[cmd]) {
-                commands.exec(cmd, null, {argv: args});
+                commands.exec(cmd, null, { argv: args });
             }
             else if (/^\d+$/.test(cmd)) {
                 ed.gotoLine(cmd, 0, true);
@@ -480,26 +480,26 @@ define(function(require, exports, module) {
                     var session = ed.session;
                     var col = ed.selection.isEmpty() ? ed.selection.lead.column : -1;
                     ed.navigateRight();
-                    var tok = session.getTokenAt(0, col+1);
+                    var tok = session.getTokenAt(0, col + 1);
                     if (col == ed.selection.lead.column && tok && tok.type == "invisible")
-                        session.doc.insertInLine({row:0, column: col}, tok.value);
+                        session.doc.insertInLine({ row: 0, column: col }, tok.value);
                 },
             }, {
                 bindKey: "Up",
                 name: "Up",
-                exec: function(cmdLine) {cmdLine.navigateHistory(-1)},
+                exec: function(cmdLine) {cmdLine.navigateHistory(-1);},
             }, {
                 bindKey: "Down",
                 name: "Down",
-                exec: function(cmdLine) {cmdLine.navigateHistory(1)},
+                exec: function(cmdLine) {cmdLine.navigateHistory(1);},
             }, {
                 bindKey: "Ctrl-Home|PageUp",
                 name: "firstInHistory",
-                exec: function(cmdLine) {cmdLine.navigateHistory(0)},
+                exec: function(cmdLine) {cmdLine.navigateHistory(0);},
             }, {
                 bindKey: "Ctrl-End|PageDown",
                 name: "lastInHistory",
-                exec: function(cmdLine) {cmdLine.navigateHistory()}
+                exec: function(cmdLine) {cmdLine.navigateHistory();}
             }]);
         
             function tabCycle(ed, dir) {
@@ -514,7 +514,7 @@ define(function(require, exports, module) {
                 }
         
                 if (!ed.$tabCycle) {
-                    var tok = session.getTokenAt(0, len) || {value: "", type: ""};
+                    var tok = session.getTokenAt(0, len) || { value: "", type: "" };
                     var matches = session.getState(0);
         
                     if (matches == "start")
@@ -525,7 +525,7 @@ define(function(require, exports, module) {
                     if (matches.length == 1 && tok.value == matches[0]) {
                         if (tok.command) {
                             matches = getCompletions(tok.command);
-                            tok = {value: "", type: ""};
+                            tok = { value: "", type: "" };
                         }
                         if (!matches)
                             return;
@@ -626,7 +626,7 @@ define(function(require, exports, module) {
         
             cmdLine.getCurrentCommandWithHistory = function() {
                 var tokens = this.session.getTokens(0);
-                for (var i = tokens.length; i--; ) {
+                for (var i = tokens.length; i--;) {
                     var tok = tokens[i];
                     if (tok && tok.command && tok.command.history)
                         return tok.command;
@@ -664,7 +664,7 @@ define(function(require, exports, module) {
                 var command = null;
                 var tokens = [];
                 function add(type, value) {
-                    tokens.push({type: type, value:value, command: command});
+                    tokens.push({ type: type, value: value, command: command });
                 }
         
                 while (line.length) {
@@ -773,12 +773,12 @@ define(function(require, exports, module) {
             /**
              * 
              */
-            get aml(){ return cmdLine; },
+            get aml() { return cmdLine; },
             
             /**
              * 
              */
-            get ace(){ return cmdLine.ace }, 
+            get ace() { return cmdLine.ace; }, 
             
             /**
              * 
